@@ -1,12 +1,12 @@
 from django.db import models
 
 
-def foto_paciente(instance, filename):
-    return '/'.join(['foto_paciente', str(instance.id_paciente), filename])
+def foto_paciente(instance,filename):
+    return '/'.join(['foto_pacientes', str(instance.id), filename])
 
 
 class Pacientes(models.Model):
-    id_paciente = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=100, blank=True, null=True)
     data_nas = models.DateTimeField(blank=True, null=True)
     rg = models.CharField(max_length=100, blank=True, null=True)
@@ -18,7 +18,7 @@ class Pacientes(models.Model):
     foto = models.ImageField(blank=True, null=True, upload_to=foto_paciente)
 
     def __str__(self):
-        return str(self.id_paciente)
+        return str(self.id)
 
     class Meta:
         managed = True

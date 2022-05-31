@@ -16,13 +16,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
+from django.conf.urls.static import static
+from django.conf import settings
 
 from pacientes.api.viewsets import PacientesViewSet
+from agendamentos.api.viewsets import AgendamentosViewSet
+from historicos.api.viewsets import HistoricosViewSet
+from imagens.api.viewsets import ImagensHistoricoViewSet, FotoPacienteViewSet
 
 router = routers.DefaultRouter()
 router.register(r'pacientes', PacientesViewSet)
+router.register(r'agendamentos', AgendamentosViewSet)
+router.register(r'historicos', HistoricosViewSet)
+router.register(r'imagens_historicos', ImagensHistoricoViewSet)
+router.register(r'foto_pacientes', FotoPacienteViewSet)
+
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('admin/', admin.site.urls),
-]
+    path('admin/', admin.site.urls)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
